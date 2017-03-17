@@ -1,9 +1,9 @@
-# nraaHonourBoard Global
-library(shiny)
-library(DT)
-library(dplyr)
-library(readr)
-library(plotly)
+library(dplyr)        # data wrangling
+library(DT)           # datatables
+library(plotly)       # js visualisation
+library(readr)        # fast I/O
+library(shiny)        # web framework
+library(shinythemes)  # free bootstrap themes from bootswatch.com
 
 # Import csv files
 df.hist <- read_csv("data/nraaHistorical.csv")
@@ -19,13 +19,3 @@ df.hist %>%
   summarise(`Kings/Queens Prize Count` = n()) %>%
   arrange(desc(`Kings/Queens Prize Count`)) ->
 df.sort
-
-
-
-
-
-  
-  
-
-
-  

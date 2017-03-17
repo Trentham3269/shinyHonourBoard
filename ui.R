@@ -1,9 +1,11 @@
-# nraaHonourBoard UI
 shinyUI( 
   
   fluidPage(
     
-    # include Google Analytics
+    # Apply free bootswatch theme
+    theme = shinytheme("flatly"),
+    
+    # Include Google Analytics
     tags$head(includeScript("www/google-analytics.js")),
     
     h2(titlePanel("National Rifle Association of Australia")),
@@ -39,7 +41,7 @@ shinyUI(
         
         downloadButton(outputId = "download"
                        , label = "Download Data"
-                       , class = "btn-primary"
+                       , class = "btn-info"
         ),
         
         br(),

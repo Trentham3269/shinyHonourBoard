@@ -1,4 +1,3 @@
-# nraaHonourBoard Server
 shinyServer(function(input, output) {
   
   # DATA -------------------------------------------------------------------------------------------
