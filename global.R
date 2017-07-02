@@ -5,17 +5,11 @@ library(readr)        # fast I/O
 library(shiny)        # web framework
 library(shinythemes)  # free bootstrap themes from bootswatch.com
 
-# Import csv files
-df.hist <- read_csv("data/nraaHistorical.csv")
-df.comm <- read_csv("data/commGames.csv")
-df.nonQ <- read_csv("data/nonQueens.csv")
-df.wlrc <- read_csv("data/wlrc.csv")
+# Import csv file
+df <- read_csv("data/df.csv")
 
-# Sort historical data for ui select input
-df.hist %>%
-  select(everything()) %>% 
-  filter(Winner != 'NA') %>%
-  group_by(Winner) %>%
-  summarise(`Kings/Queens Prize Count` = n()) %>%
-  arrange(desc(`Kings/Queens Prize Count`)) ->
-df.sort
+# Subset full data frame by honour board type
+df %>% filter(Honour_Board == "Kings/Queens")                   -> df_kings_queens
+df %>% filter(Honour_Board == "Commonwealth Games")             -> df_comm_games
+df %>% filter(Honour_Board == "Overseas Championships")         -> df_overseas_champs
+df %>% filter(Honour_Board == "World Long Range Championships") -> df_world_champs

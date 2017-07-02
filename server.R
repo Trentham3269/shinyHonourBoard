@@ -2,29 +2,26 @@ shinyServer(function(input, output) {
   
   # DATA -------------------------------------------------------------------------------------------
   
-  results.output <- reactive({
+  results_output <- reactive({
     
     if (input$selView == "Kings/Queens Prizes"){
     
       if (input$selHnrBrdNm == "Select name from list"){
       
         # group historical results by winner
-        df.hist %>%
-          select(everything()) %>% 
-          filter(Winner != 'NA') %>%
-          group_by(Winner) %>%
+        df_kings_queens %>%
+          group_by(Name) %>%
           summarise(`Kings/Queens Prize Count` = n()) %>%
-          arrange(desc(`Kings/Queens Prize Count`))
+          arrange(desc(`Kings/Queens Prize Count`)) -> test
         
       } else {
         
         # subset data frame with user's selections
-        df.hist %>% 
+        df_kings_queens %>% 
           select(Year
-                 , Winner
-                 , `Kings/Queens Prize` = State) %>% 
-          filter(Winner != 'NA' &
-                 Winner == input$selHnrBrdNm) %>%
+                 , Name
+                 , `Kings/Queens Prize` = Championship) %>% 
+          filter(Name == input$selHnrBrdNm) %>%
           arrange(desc(Year))
         
       }
@@ -33,24 +30,24 @@ shinyServer(function(input, output) {
       
       if (input$selCommTyp == "Both"){
         
-        df.comm %>% 
+        df_comm_games %>% 
           select(Year
-                 , Medal
-                 , Winner
+                 , Name
+                 , Place
                  , Match = Type
-                 , `Host City` = Host_City
-                 , `Host Country` = Host_Nation) %>% 
+                 , `Host City` = Location
+                 , `Host Country` = Country) %>% 
           arrange(desc(Year))
         
       } else {
         
-        df.comm %>% 
+        df_comm_games %>% 
           select(Year
-                 , Medal
-                 , Winner
+                 , Name
+                 , Place
                  , Match = Type
-                 , `Host City` = Host_City
-                 , `Host Country` = Host_Nation) %>% 
+                 , `Host City` = Location
+                 , `Host Country` = Country) %>% 
           filter(Match == input$selCommTyp) %>% 
           arrange(desc(Year))
         
@@ -58,12 +55,23 @@ shinyServer(function(input, output) {
     
     } else if (input$selView == "World Long Range Championships"){ 
       
-      df.wlrc %>% 
+      df_world_champs %>% 
+        select(Year
+               , Name
+               , Place
+               , Location
+               , Country) %>% 
         arrange(desc(Year))
       
     } else if (input$selView == "Overseas Championships"){ 
       
-      df.nonQ %>% 
+      df_overseas_champs %>% 
+        select(Year
+               , Championship
+               , Name
+               , Place
+               , Location
+               , Country) %>% 
         arrange(desc(Year))
       
     } 
@@ -74,7 +82,7 @@ shinyServer(function(input, output) {
   
   output$results <- renderDataTable({
   
-    results.output()
+    results_output()
   
   }, options = list(paging = FALSE
                     , columnDefs = list(list(className = 'dt-center', targets = c("_all")))))
@@ -88,20 +96,20 @@ shinyServer(function(input, output) {
       if (input$selHnrBrdNm == "Select name from list"){
       
         # top 10 by Kings/Queens Prize Count
-        results.output() %>% 
+        results_output() %>% 
           top_n(n = 10) ->
-        results.top
+        results_top
         
         # get order for x axis
-        x.order <- list(results.top$Winner)
+        x_order <- list(results_top$Name)
         
         # plot
-        plot_ly(data    = results.top
-                , x     = ~Winner
+        plot_ly(data    = results_top
+                , x     = ~Name
                 , y     = ~`Kings/Queens Prize Count`
                 , type  = "bar") %>%
         layout(title    = paste0("Top 10 Kings/Queens Winners")
-               , xaxis  = list(title = "", categoryorder = "array", categoryarray = x.order)
+               , xaxis  = list(title = "", categoryorder = "array", categoryarray = x_order)
                , yaxis  = list(title = "")
                , margin = list(l = 20, t = 40, r = 40, b = 55)) %>%
         config(displayModeBar = FALSE)
@@ -109,7 +117,7 @@ shinyServer(function(input, output) {
       } else if (input$selHnrBrdNm != "Select name from list"){
       
         # plot
-        plot_ly(data    = results.output()
+        plot_ly(data    = results_output()
                 , x     = ~`Kings/Queens Prize`
                 , type  = "histogram") %>%
         layout(title    = paste0(input$selHnrBrdNm, " - Wins by Location")
@@ -123,19 +131,21 @@ shinyServer(function(input, output) {
     } else if (input$selView == "Commonwealth Games"){
       
       # order x axis
-      x.order <- c("Gold", "Silver", "Bronze")
+      x_order <- c("Gold", "Silver", "Bronze")
     
       # plot
-      plot_ly(data    = results.output()
-              , x     = ~Medal
+      plot_ly(data    = results_output()
+              , x     = ~Place
               , type  = "histogram") %>%
       layout(title    = "Commonwealth Games Medal Tally"
-             , xaxis  = list(title = "", categoryorder = "array", categoryarray = x.order)
+             , xaxis  = list(title = "", categoryorder = "array", categoryarray = x_order)
              , yaxis  = list(dtick = 1)
              , margin = list(l = 20, t = 40, r = 20, b = 50)) %>%
       config(displayModeBar = FALSE)
       
-    } else if (input$selView == "World Long Range Championships"){
+    } 
+    
+    else if (input$selView == "World Long Range Championships"){
       
       plotly_empty()
       
@@ -150,7 +160,7 @@ shinyServer(function(input, output) {
   # DOWNLOAD ---------------------------------------------------------------------------------------
   
   # Switch for download's filename
-  dwnld.nm <- reactive({
+  dwnld_nm <- reactive({
     
     switch(input$selView
            , "Kings/Queens Prizes"            = "Kings/Queens_Prizes"
@@ -164,10 +174,10 @@ shinyServer(function(input, output) {
   output$download <- downloadHandler(
     
     filename = function() {
-      paste0(dwnld.nm(),".csv")
+      paste0(dwnld_nm(),".csv")
     }, 
     content = function(file) {
-      write_csv(results.output(), file)
+      write_csv(results_output(), file)
     }
   
   )

@@ -28,20 +28,20 @@ shinyUI(
         conditionalPanel(condition = "input.selView == 'Kings/Queens Prizes'",
           selectInput(inputId = "selHnrBrdNm"
                       , label = "Choose name to list win(s):"
-                      , choices = c("Select name from list", df.sort$Winner))
+                      , choices = c("Select name from list", sort(unique(df_kings_queens$Name))))
         ),
         
         conditionalPanel(condition = "input.selView == 'Commonwealth Games'",
           selectInput(inputId = "selCommTyp"
                       , label = "Choose Individual or Pairs results:"
-                      , choices = c("Both", sort(df.comm$Type)))
+                      , choices = c("Both", sort(df_comm_games$Type)))
         ),
         
         br(),
         
         downloadButton(outputId = "download"
-                       , label = "Download Data"
-                       , class = "btn-info"
+                       , label  = "Download Data"
+                       , class  = "btn-info"
         ),
         
         br(),
@@ -49,9 +49,9 @@ shinyUI(
         
         conditionalPanel(condition = "input.selView == 'Kings/Queens Prizes' || 
                                       input.selView == 'Commonwealth Games'",
-                         br(),
-                         plotlyOutput("plot", width = "100%", height = "300px"),
-                         br()
+          br(),
+          plotlyOutput("plot", width = "100%", height = "300px"),
+          br()
         ),
         
         p("Note: additional Channel Islands, Guernsey and Papua New Guinea results are being 
@@ -65,6 +65,3 @@ shinyUI(
     ) 
   )
 )
-
-
-
