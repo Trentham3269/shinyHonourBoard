@@ -6,7 +6,7 @@ library(shiny)        # web framework
 library(shinythemes)  # free bootstrap themes from bootswatch.com
 
 # Import csv file
-df <- read_csv("data/df.csv")
+df <- read_csv("data/app_data.csv")
 
 # Subset full data frame by honour board type
 df %>% filter(Honour_Board == "Kings/Queens")                   -> df_kings_queens

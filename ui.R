@@ -54,8 +54,7 @@ shinyUI(
           br()
         ),
         
-        p("Note: additional Channel Islands, Guernsey and Papua New Guinea results are being 
-          confirmed prior to inclusion.")
+        p(paste("Data is current as at", format(Sys.Date(), "%d.%m.%Y")))
       ),
       
       # Data Table
