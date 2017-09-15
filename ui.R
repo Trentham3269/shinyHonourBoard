@@ -54,7 +54,9 @@ shinyUI(
           br()
         ),
         
-        p(paste("Data is current as at", format(Sys.Date(), "%d.%m.%Y")))
+        p("Data is current as at 31.08.2017"),
+        
+        a(href="https://trentham3269.shinyapps.io/shinyrangemap/", "NRAA Ranges")
       ),
       
       # Data Table
