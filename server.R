@@ -4,15 +4,15 @@ shinyServer(function(input, output) {
   
   results_output <- reactive({
     
-    if (input$selView == "Kings/Queens Prizes"){
-    
+    if (input$selView == "Kings/Queens Prizes" & input$selHnrBrd == "Name"){
+      
       if (input$selHnrBrdNm == "Select name from list"){
       
         # group historical results by winner
         df_kings_queens %>%
           group_by(Name) %>%
           summarise(`Kings/Queens Prize Count` = n()) %>%
-          arrange(desc(`Kings/Queens Prize Count`)) -> test
+          arrange(desc(`Kings/Queens Prize Count`))
         
       } else {
         
@@ -26,6 +26,18 @@ shinyServer(function(input, output) {
         
       }
       
+    } else if (input$selView == "Kings/Queens Prizes" & input$selHnrBrd == "Year"){
+    
+      # subset data frame with user's selections
+      df_kings_queens %>% 
+        select(Year
+               , Name
+               , `Kings/Queens Prize` = Championship) %>% 
+        filter(Year == input$selHnrBrdYr)
+      
+      #TODO order shoots within yr
+      #TODO group winners for yr for plotly output
+
     } else if (input$selView == "Commonwealth Games"){
       
       if (input$selCommTyp == "Both"){
@@ -91,9 +103,9 @@ shinyServer(function(input, output) {
   
   output$plot <- renderPlotly({
     
-    if (input$selView == "Kings/Queens Prizes"){
-        
-      if (input$selHnrBrdNm == "Select name from list"){
+    if (input$selView     == "Kings/Queens Prizes" &
+        input$selHnrBrd   == "Name" &
+        input$selHnrBrdNm == "Select name from list"){
       
         # top 10 by Kings/Queens Prize Count
         results_output() %>% 
@@ -111,10 +123,12 @@ shinyServer(function(input, output) {
         layout(title    = paste0("Top 10 Kings/Queens Winners")
                , xaxis  = list(title = "", categoryorder = "array", categoryarray = x_order)
                , yaxis  = list(title = "")
-               , margin = list(l = 20, t = 40, r = 40, b = 55)) %>%
+               , margin = list(l = 20, t = 40, r = 40, b = 90)) %>%
         config(displayModeBar = FALSE)
       
-      } else if (input$selHnrBrdNm != "Select name from list"){
+      } else if (input$selView     == "Kings/Queens Prizes" &
+                 input$selHnrBrd   == "Name" &
+                 input$selHnrBrdNm != "Select name from list"){
       
         # plot
         plot_ly(data    = results_output()
@@ -126,34 +140,45 @@ shinyServer(function(input, output) {
                , margin = list(l = 20, t = 40, r = 20, b = 50)) %>%
         config(displayModeBar = FALSE)
         
+      } else if (input$selView   == "Kings/Queens Prizes" &
+                 input$selHnrBrd == "Year"){
+        
+        # plot
+        plot_ly(data    = results_output()
+                , x     = ~Name
+                , type  = "histogram") %>%
+        layout(title    = paste0(input$selHnrBrdYr, " Kings/Queens Winners")
+               , xaxis  = list(title = "")
+               , yaxis  = list(dtick = 1)
+               , margin = list(l = 20, t = 40, r = 20, b = 90)) %>%
+        config(displayModeBar = FALSE)
+      
+      } else if (input$selView == "Commonwealth Games"){
+        
+        # order x axis
+        x_order <- c("Gold", "Silver", "Bronze")
+      
+        # plot
+        plot_ly(data    = results_output()
+                , x     = ~Place
+                , type  = "histogram") %>%
+        layout(title    = "Commonwealth Games Medal Tally"
+               , xaxis  = list(title = "", categoryorder = "array", categoryarray = x_order)
+               , yaxis  = list(dtick = 1)
+               , margin = list(l = 20, t = 40, r = 20, b = 50)) %>%
+        config(displayModeBar = FALSE)
+        
       } 
       
-    } else if (input$selView == "Commonwealth Games"){
-      
-      # order x axis
-      x_order <- c("Gold", "Silver", "Bronze")
-    
-      # plot
-      plot_ly(data    = results_output()
-              , x     = ~Place
-              , type  = "histogram") %>%
-      layout(title    = "Commonwealth Games Medal Tally"
-             , xaxis  = list(title = "", categoryorder = "array", categoryarray = x_order)
-             , yaxis  = list(dtick = 1)
-             , margin = list(l = 20, t = 40, r = 20, b = 50)) %>%
-      config(displayModeBar = FALSE)
-      
-    } 
-    
-    else if (input$selView == "World Long Range Championships"){
-      
-      plotly_empty()
-      
-    } else if (input$selView == "Overseas Championships"){
-      
-      plotly_empty()
-      
-    } 
+      else if (input$selView == "World Long Range Championships"){
+        
+        plotly_empty()
+        
+      } else if (input$selView == "Overseas Championships"){
+        
+        plotly_empty()
+        
+      } 
   
   })
   
