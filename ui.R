@@ -54,7 +54,7 @@ shinyUI(
           br()
         ),
         
-        p("Data is current as at 31.08.2017"),
+        p("Data is current as at 17.09.2017"),
         
         a(href="https://trentham3269.shinyapps.io/shinyrangemap/", "NRAA Ranges")
       ),
