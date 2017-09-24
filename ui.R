@@ -51,8 +51,7 @@ shinyUI(
         ),
         
         conditionalPanel(condition = "input.selView == 'Kings/Queens Prizes' || 
-                                      input.selView == 'Commonwealth Games' ||
-                         input.selHnrBrd != 'Year'",
+                                      input.selView == 'Commonwealth Games'",
                          br(),
                          plotlyOutput("plot", width = "100%", height = "300px"),
                          br()
