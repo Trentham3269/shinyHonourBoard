@@ -143,16 +143,22 @@ shinyServer(function(input, output) {
       } else if (input$selView   == "Kings/Queens Prizes" &
                  input$selHnrBrd == "Year"){
         
-        # plot
-        plot_ly(data    = results_output()
-                , x     = ~Name
-                , type  = "histogram") %>%
-        layout(title    = paste0(input$selHnrBrdYr, " Kings/Queens Winners")
-               , xaxis  = list(title = "")
-               , yaxis  = list(dtick = 1)
-               , margin = list(l = 20, t = 40, r = 20, b = 90)) %>%
-        config(displayModeBar = FALSE)
-      
+        # Group yearly winners
+        results_output() %>% 
+          group_by(Name) %>% 
+          summarise(Wins = n()) ->
+        results_yr
+        
+        # Plot
+        plot_ly(data        = results_yr
+                , labels    = ~Name
+                , values    = ~Wins
+                , textinfo  = 'label'
+                , hoverinfo = 'label+value') %>% 
+        add_pie(hole = 0.3) %>% 
+        layout(title  = paste0(input$selHnrBrdYr, " Kings/Queens Winners"),
+               margin = list(l = 20, t = 40, r = 20, b = 10))
+        
       } else if (input$selView == "Commonwealth Games"){
         
         # order x axis
