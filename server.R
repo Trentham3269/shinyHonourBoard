@@ -34,10 +34,17 @@ shinyServer(function(input, output) {
                , Name
                , `Kings/Queens Prize` = Championship) %>% 
         filter(Year == input$selHnrBrdYr)
-      
-      #TODO order shoots within yr
-      #TODO group winners for yr for plotly output
 
+    } else if (input$selView == "Kings/Queens Prizes" & input$selHnrBrd == "State"){
+    
+      # subset data frame with user's selections
+      df_kings_queens %>% 
+        select(Year
+               , Name
+               , `Kings/Queens Prize` = Championship) %>% 
+        filter(`Kings/Queens Prize` == input$selHnrBrdSt) %>% 
+        arrange(desc(Year))
+    
     } else if (input$selView == "Commonwealth Games"){
       
       if (input$selCommTyp == "Both"){
@@ -158,6 +165,32 @@ shinyServer(function(input, output) {
         add_pie(hole = 0.3) %>% 
         layout(title  = paste0(input$selHnrBrdYr, " Kings/Queens Winners"),
                margin = list(l = 20, t = 40, r = 20, b = 10))
+        
+      } else if (input$selView   == "Kings/Queens Prizes" &
+                 input$selHnrBrd == "State"){
+        
+        # Group multiple winners
+        results_output() %>% 
+          group_by(Name) %>% 
+          summarise(Wins = n()) %>% 
+          filter(Wins > 1) %>% 
+          arrange(desc(Wins)) ->
+        results_st
+        
+        # get order for x axis
+        x_order <- list(results_st$Name)
+        
+        # plot
+        plot_ly(data    = results_st
+                , x     = ~Name
+                , y     = ~Wins
+                , type  = "bar") %>%
+          layout(title    = paste0(input$selHnrBrdSt, " Multiple Winners")
+                 , xaxis  = list(title = "", categoryorder = "array", categoryarray = x_order)
+                 , yaxis  = list(title = "", dtick = 1)
+                 , margin = list(l = 20, t = 40, r = 30, b = 90)) %>%
+          config(displayModeBar = FALSE)
+        
         
       } else if (input$selView == "Commonwealth Games"){
         

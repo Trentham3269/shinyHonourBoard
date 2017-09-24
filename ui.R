@@ -27,8 +27,8 @@ shinyUI(
         
         conditionalPanel(condition = "input.selView == 'Kings/Queens Prizes'",
           radioButtons(inputId = "selHnrBrd"
-                       , label = "View by name or year:"
-                       , choices = c("Name", "Year")
+                       , label = "View by name, year or state:"
+                       , choices = c("Name", "Year", "State")
                        , inline = TRUE)
         ),
           
@@ -40,8 +40,14 @@ shinyUI(
         
         conditionalPanel(condition = "input.selHnrBrd == 'Year'",
           selectInput(inputId = "selHnrBrdYr"
-                      , label = "Choose year to list wins:"
+                      , label = "Choose year to list winners:"
                       , choices = sort(unique(df_kings_queens$Year), decreasing = TRUE))
+        ),
+        
+        conditionalPanel(condition = "input.selHnrBrd == 'State'",         
+          selectInput(inputId = "selHnrBrdSt"
+                      , label = "Choose state to list winners:"
+                      , choices = c("ACT", "NAT", "NSW", "NQ", "NT", "QLD", "SA", "TAS", "VIC", "WA"))
         ),
         
         conditionalPanel(condition = "input.selView == 'Commonwealth Games'",
