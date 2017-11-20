@@ -71,7 +71,7 @@ shinyUI(
         br(),
         br(),
         
-        p("Data is current as at 29.09.2017"),
+        p("Data is current as at 18.11.2017 and now includes 2017 ACT Championships."),
         
         a(href="https://trentham3269.shinyapps.io/shinyrangemap/", "NRAA Ranges")
       ),
