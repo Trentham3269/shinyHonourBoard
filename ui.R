@@ -32,7 +32,7 @@ shinyUI(
                        , inline = TRUE)
         ),
           
-        conditionalPanel(condition = "input.selHnrBrd == 'Name'",         
+        conditionalPanel(condition = "input.selHnrBrd == 'Name' && input.selView == 'Kings/Queens Prizes'",         
           selectInput(inputId = "selHnrBrdNm"
                       , label = "Choose name to list win(s):"
                       , choices = c("Select name from list", sort(unique(df_kings_queens$Name))))
