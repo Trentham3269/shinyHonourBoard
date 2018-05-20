@@ -71,7 +71,7 @@ shinyUI(
         br(),
         br(),
         
-        p("Data is current as at 13.05.2018 and now includes 2018 South Australian Championships."),
+        p("Data is current as at 20.05.2018 and now includes 2018 North Queensland Championships."),
         
         a(href="https://trentham3269.shinyapps.io/shinyrangemap/", "NRAA Ranges")
       ),
