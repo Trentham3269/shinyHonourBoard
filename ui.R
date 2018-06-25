@@ -71,7 +71,7 @@ shinyUI(
         br(),
         br(),
         
-        p("Data updated on 17.06.2018 and now includes 2018 Northern Territory Championships."),
+        p("Data updated on 25.06.2018 and now includes 2018 NRAA Championships"),
         
         a(href="https://trentham3269.shinyapps.io/shinyrangemap/", "NRAA Ranges")
       ),
