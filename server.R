@@ -157,14 +157,13 @@ shinyServer(function(input, output) {
         results_yr
         
         # Plot
-        plot_ly(data        = results_yr
-                , labels    = ~Name
-                , values    = ~Wins
-                , textinfo  = 'label'
-                , hoverinfo = 'label+value') %>% 
-        add_pie(hole = 0.3) %>% 
+        plot_ly(data   = results_yr
+                , x    = ~Name
+                , y    = ~Wins
+                , type = "bar") %>% 
         layout(title  = paste0(input$selHnrBrdYr, " Kings/Queens Winners"),
-               margin = list(l = 20, t = 40, r = 20, b = 10))
+               yaxis  = list(title = ""),
+               margin = list(l = 20, t = 40, r = 20, b = 50))
         
       } else if (input$selView   == "Kings/Queens Prizes" &
                  input$selHnrBrd == "State"){
