@@ -71,7 +71,7 @@ shinyUI(
         br(),
         br(),
         
-        p("Data updated on 25.09.2018 and now includes 2018 WA Championships"),
+        p("Data updated on 08.10.2018 and now includes 2018 NSWRA Championships"),
         
         a(href="https://trentham3269.shinyapps.io/shinyrangemap/", "NRAA Ranges")
       ),
