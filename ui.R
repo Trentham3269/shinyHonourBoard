@@ -71,7 +71,7 @@ shinyUI(
         br(),
         br(),
         
-        p("Data updated on 27 May 2019 and now includes 2019 NQRA Championships"),
+        p("Data updated on 23 June 2019 and now includes 2019 NRAA Championships"),
         
         a(href="https://trentham3269.shinyapps.io/shinyrangemap/", "NRAA Ranges")
       ),
