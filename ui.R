@@ -71,7 +71,7 @@ shinyUI(
         br(),
         br(),
         
-        p("Data updated on 4 February 2020 and now includes 2020 NZ Championships"),
+        p("Data updated on 12 May 2020 and now includes 2020 TRA Championships"),
         
         a(href="https://trentham3269.shinyapps.io/shinyrangemap/", "NRAA Ranges")
       ),
