@@ -71,7 +71,7 @@ shinyUI(
         br(),
         br(),
         
-        p("Data updated on 12 May 2020 and now includes 2020 TRA Championships"),
+        p("Data updated on 27 January 2021 and now includes 2020 NSWRA Championships"),
         
         a(href="https://trentham3269.shinyapps.io/shinyrangemap/", "NRAA Ranges")
       ),
