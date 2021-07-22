@@ -71,7 +71,7 @@ shinyUI(
         br(),
         br(),
         
-        p("Data updated on 20 April 2021 and now includes 2021 VRA Championships"),
+        p("Data updated on 22 July 2021, up to and including 2021 NRAA Championships"),
         
         a(href="https://trentham3269.shinyapps.io/shinyrangemap/", "NRAA Ranges")
       ),
