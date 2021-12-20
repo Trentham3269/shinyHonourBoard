@@ -71,7 +71,7 @@ shinyUI(
         br(),
         br(),
         
-        p("Data updated on 22 July 2021, up to and including 2021 NRAA Championships"),
+        p("Data updated on 20 December 2021, up to and including 2021 QLD Championships"),
         
         a(href="https://trentham3269.shinyapps.io/shinyrangemap/", "NRAA Ranges")
       ),
