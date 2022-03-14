@@ -71,7 +71,7 @@ shinyUI(
         br(),
         br(),
         
-        p("Data updated on 1 February 2022 and includes the delayed 2021 NSW Championships"),
+        p("Data updated on 14 March 2022 and includes the 2022 TRA Championships"),
         
         a(href="https://trentham3269.shinyapps.io/shinyrangemap/", "NRAA Ranges")
       ),
