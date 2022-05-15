@@ -71,14 +71,14 @@ shinyUI(
         br(),
         br(),
         
-        p("Data updated on 10 April 2022 to include the 2022 VRA Championships"),
+        p("Data updated on 15 May 2022 to include the 2022 NQ Championships"),
         
         a(href="https://trentham3269.shinyapps.io/shinyrangemap/", "NRAA Ranges")
       ),
       
       # Data Table
       mainPanel( 
-        dataTableOutput(outputId = "results")   
+        dataTableOutput(outputId = "results")
       )
     ) 
   )
