@@ -44,7 +44,7 @@ shinyUI(
                       , choices = sort(unique(df_kings_queens$Year), decreasing = TRUE))
         ),
         
-        conditionalPanel(condition = "input.selHnrBrd == 'State'",         
+        conditionalPanel(condition = "input.selHnrBrd == 'State'",
           selectInput(inputId = "selHnrBrdSt"
                       , label = "Choose state to list winners:"
                       , choices = c("ACT", "NAT", "NSW", "NQ", "NT", "QLD", "SA", "TAS", "VIC", "WA"))
@@ -71,7 +71,7 @@ shinyUI(
         br(),
         br(),
         
-        p("Data updated on 15 May 2022 to include the 2022 NQ Championships"),
+        p("Data updated on 1 September 2022, up to and including the 2022 QRA Championships"),
         
         a(href="https://trentham3269.shinyapps.io/shinyrangemap/", "NRAA Ranges")
       ),
