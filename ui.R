@@ -71,7 +71,7 @@ shinyUI(
         br(),
         br(),
         
-        p("Data updated on 1 September 2022, up to and including the 2022 QRA Championships"),
+        p("Data updated on 12 September 2022, up to and including the 2022 NSWRA Championships"),
         
         a(href="https://trentham3269.shinyapps.io/shinyrangemap/", "NRAA Ranges")
       ),
