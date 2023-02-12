@@ -71,7 +71,7 @@ shinyUI(
         br(),
         br(),
         
-        p("Data updated on 28 December 2022, up to and including the 2022 ACT Championships"),
+        p("Data updated on 12 February 2023, up to and including the 2023 NSW Championships"),
         
         a(href="https://trentham3269.shinyapps.io/shinyrangemap/", "NRAA Ranges")
       ),
