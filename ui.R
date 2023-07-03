@@ -71,7 +71,7 @@ shinyUI(
         br(),
         br(),
         
-        p("Data updated on 26 April 2023, up to and including the 2023 VRA Championships"),
+        p("Data updated on 3 July 2023, up to and including the 2023 NQRA Championships"),
         
         a(href="https://trentham3269.shinyapps.io/shinyrangemap/", "NRAA Ranges")
       ),
