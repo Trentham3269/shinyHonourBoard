@@ -71,7 +71,7 @@ shinyUI(
         br(),
         br(),
         
-        p("Data updated on 29 October 2023, up to and including the 2023 National Championships"),
+        p("Data updated on 4 February 2024, up to and including the 2024 NSW Championships"),
         
         a(href="https://trentham3269.shinyapps.io/shinyrangemap/", "NRAA Ranges")
       ),
